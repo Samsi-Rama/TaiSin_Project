@@ -75,7 +75,7 @@
 
       <b-row>
         <b-col cols="12" style="text-align:right" v-if="!canEdit">
-          Only Super Admin can Edit Applications Option
+          Only Super Admin can Edit Application Options
         </b-col>
         <b-col cols="12" style="text-align:right" v-else-if="!edit">
           <b-button
