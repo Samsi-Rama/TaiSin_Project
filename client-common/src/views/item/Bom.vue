@@ -2,7 +2,7 @@
   <b-card title="Drum">
       <b-col cols="12">
         <b-button @click="add()" v-if="permission.add" variant="primary">Add new Drum</b-button>
-            <b-button
+            <!-- <b-button
               variant="primary"
               style="margin-left:15px;"
               @click="promptDownload=true"
@@ -15,7 +15,7 @@
               @click="promptUpload=true"
             >
               <feather-icon size="1x" icon="UploadIcon" /> Upload
-            </b-button>
+            </b-button> -->
         <!-- Modal for adding new BOM-->
         <b-modal style="margin:1em" v-model="addBOMModal" :title="addModal.title" :id="addModal.id" size="lg" >
           <b-form  style="margin:1em" @submit="onSubmitAdd" @reset="onReset" v-if="show">
