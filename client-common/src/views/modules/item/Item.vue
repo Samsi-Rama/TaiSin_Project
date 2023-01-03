@@ -35,7 +35,7 @@
           />
         </b-form-group>
 
-        <b-form-group
+        <!-- <b-form-group
           label="Stock"
           label-for="form-stock"
         >
@@ -45,7 +45,7 @@
             type="number"
             min="0"
           />
-        </b-form-group>
+        </b-form-group> -->
 
         <b-form-group
           label="Unit"
@@ -236,7 +236,7 @@
         </template>
       </b-modal>
 
-      <b-modal
+      <!-- <b-modal
         id="promptDownload"
         ref="modal"
         v-model="promptDownload"
@@ -289,7 +289,7 @@
             Cancel
           </b-button>
         </template>
-      </b-modal>
+      </b-modal> -->
 
       <b-modal
         id="promptLoading"
@@ -373,7 +373,7 @@
             >
               <feather-icon size="1x" icon="RefreshCwIcon" /> Sync
             </b-button> -->
-            <b-button
+            <!-- <b-button
               variant="primary"
               style="margin-left:15px;"
               @click="promptDownload=true"
@@ -386,7 +386,7 @@
               @click="promptUpload=true"
             >
               <feather-icon size="1x" icon="UploadIcon" /> Upload
-            </b-button>
+            </b-button> -->
             <b-button
               variant="danger"
               style="margin-left:15px;"
@@ -537,7 +537,7 @@ export default {
         { key: 'name', label: 'Name', filterable: true, sortable: true },
         { key: 'itemID', label: 'ID', filterable: true, sortable: true },
         { key: 'type', label: 'Type', filterable: true, sortable: true },
-        { key: 'stock', label: 'Stock', filterable: true, sortable: true },
+        // { key: 'stock', label: 'Stock', filterable: true, sortable: true },
         { key: 'unit', label: 'Unit', filterable: true, sortable: true },
         { key: 'price', label: 'Price', filterable: true, sortable: true },
         { key: 'currency', label: 'Currency', filterable: true, sortable: true },
@@ -561,7 +561,7 @@ export default {
         name: '',
         props: {
           id: '',
-          stock: '',
+          // stock: '',
           unit: '',
           price: '',
           currency: '',
@@ -580,7 +580,7 @@ export default {
         'Name'      : "name",
         'ID'        : 'itemID',
         'Type'      : 'type',
-        'Stock'     : 'stock',
+        // 'Stock'     : 'stock',
         'Unit'      : 'unit',
         'Price'     : 'price',
         'Currency'  : 'currency',
@@ -745,7 +745,7 @@ export default {
         name: '',
         props: {
           id: '',
-          stock: '',
+          // stock: '',
           unit: '',
           price: '',
           currency: ''
@@ -774,7 +774,7 @@ export default {
           this.form.name = trimmedData['Name']
           this.form.props = {
             id: trimmedData['ID'],
-            stock: trimmedData['Stock'],
+            // stock: trimmedData['Stock'],
             unit: trimmedData['Unit'],
             price: trimmedData['Price'],
             currency
@@ -810,7 +810,7 @@ export default {
           'Name',
           'ID',
           'Type',
-          'Stock',
+          // 'Stock',
           'Unit',
           'Price',
           'Currency'
@@ -867,7 +867,7 @@ export default {
           ...el,
           itemID: el.props ? el.props.id ? el.props.id : 'Not Set Up' : 'Not Set Up',
           type: el.props ? el.props.components ? el.props.components.length > 0 ? 'BOM' : 'Raw Material' : 'Raw Material' : 'Raw Material',
-          stock: el.props ? el.props.stock ? el.props.stock : 'Not Set Up' : 'Not Set Up',
+          // stock: el.props ? el.props.stock ? el.props.stock : 'Not Set Up' : 'Not Set Up',
           unit: el.props ? el.props.unit ? el.props.unit : 'Not Set Up' : 'Not Set Up',
           price: el.props ? el.props.price ? el.props.price : 'Not Set Up' : 'Not Set Up',
           currency: el.props ? el.props.currency ? el.props.currency.label : 'Not Set Up' : 'Not Set Up',
