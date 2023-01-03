@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card-group deck>
-      <b-card>
+      <!-- <b-card>
         <b-card-text>
           <b-row>
             <b-col cols="4" class="d-flex flex-column h-auto justify-content-center align-items-center">
@@ -19,9 +19,9 @@
             </b-col>
           </b-row>
         </b-card-text>
-      </b-card>
+      </b-card> -->
 
-      <b-card>
+      <!-- <b-card>
         <b-card-text>
           <b-row>
             <b-col cols="4" class="d-flex flex-column h-auto justify-content-center align-items-center">
@@ -39,7 +39,7 @@
             </b-col>
           </b-row>
         </b-card-text>
-      </b-card>
+      </b-card> -->
 
       <b-card>
         <b-card-text>
@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import bom from '@/store/bom'
 import VueApexCharts from 'vue-apexcharts'
 
 export default {
