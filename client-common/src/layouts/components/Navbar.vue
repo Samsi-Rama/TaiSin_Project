@@ -87,7 +87,7 @@
             </p>
             <small>{{ user.role }}</small>
           </div>
-          <b-img src="@/assets/images/logo.png" alt="img" height="35" rounded="circle" />
+          <b-img src="@/assets/images/logo.png" alt="img" height="35" rounded="false" />
         </template>
 
         <b-dropdown-item
