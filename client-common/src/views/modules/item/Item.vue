@@ -898,7 +898,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Item | PhibaTai sinse - Common'
+    document.title = 'Item | Tai Sin - Common'
   },
   mounted() {
     this.$store
