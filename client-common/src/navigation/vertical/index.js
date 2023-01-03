@@ -19,11 +19,11 @@ var menu = [
     icon: 'BoxIcon',
     route: 'item',
   },
-      // {
-      //   title: 'Component',
-      //   route: 'component',
-      //   icon: 'PackageIcon',
-      // },
+      {
+        title: 'Component',
+        route: 'component',
+        icon: 'PackageIcon',
+      },
       {
         title: 'Drum',
         route: 'bom',

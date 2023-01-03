@@ -1,5 +1,5 @@
 <template>
-  <b-card title="BOM">
+  <b-card title="Drum">
       <b-col cols="12">
         <b-button @click="add()" v-if="permission.add" variant="primary">Add new Drum</b-button>
             <b-button
