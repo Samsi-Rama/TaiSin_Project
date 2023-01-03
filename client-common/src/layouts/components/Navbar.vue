@@ -73,59 +73,7 @@
         </b-button>
       </template>
   </b-modal>
-    <!-- Nav Menu Toggler -->
-    <ul class="nav navbar-nav d-xl-none">
-      <li class="nav-item">
-        <b-link
-          class="nav-link"
-          @click="toggleVerticalMenuActive"
-        >
-          <feather-icon
-            icon="MenuIcon"
-            size="10"
-          />
-        </b-link>
-      </li>
-    </ul>
-
-    <!-- Left Col -->
-    <div class="bookmark-wrapper align-items-center flex-grow-1 d-lg-flex">
-      <!-- <dark-Toggler class="d-none d-lg-block" /> -->
-
-      <a href="http://phibase.io" title="Homepage">
-        <feather-icon icon="HomeIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <a title="Common">
-        <feather-icon icon="UsersIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <a href="http://phibase.io/commerce"  title="Commerce">
-        <feather-icon icon="ShoppingCartIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <a href="http://phibase.io/manufacturing" title="Manufacture">
-        <feather-icon icon="ToolIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <a href="http://phibase.io/quality-control" title="Quality Control">
-        <feather-icon icon="EyeIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <a href="http://phibase.io/distribution" title="Distribution">
-        <feather-icon icon="TruckIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <a href="http://phibase.io/planner" title="Planner">
-        <feather-icon icon="CalendarIcon" style="width: 10px; height: 10px; margin: 0px 10px;"/>
-      </a>
-
-      <!-- target = "_blank" untuk membuka page baru dengan alamat pada href -->
-      <!-- <a href="http://phibase.io/planner" target="_blank" title="Planner">
-        <feather-icon icon="CalendarIcon" style="width: 20px; height: 20px; margin: 0px 10px;"/>
-      </a> -->
-    </div>
-
+  
       <b-navbar-nav class="nav align-items-center ml-auto">
       <b-nav-item-dropdown
         right

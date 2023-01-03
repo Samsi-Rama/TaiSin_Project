@@ -906,7 +906,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Edit Role | Phibase - Common'
+    document.title = 'Edit Role | Tai sin - Common'
   },
   mounted() {
     setTimeout(() => {

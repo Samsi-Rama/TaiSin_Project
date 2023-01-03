@@ -669,7 +669,7 @@ export default {
     },
   },
   created() {
-    document.title = 'User | Phibase - Common'
+    document.title = 'User | Tai sin - Common'
   },
   mounted() {
     this.$store

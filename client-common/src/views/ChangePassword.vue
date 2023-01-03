@@ -284,7 +284,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Change Password | Phibase - Common'
+    document.title = 'Change Password | Tai sin - Common'
   },
   mounted() {
     this.$store

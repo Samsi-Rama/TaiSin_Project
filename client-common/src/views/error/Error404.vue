@@ -74,7 +74,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Page Not Found | Phibase - Common'
+    document.title = 'Page Not Found | Tai sin - Common'
   },
 }
 </script>

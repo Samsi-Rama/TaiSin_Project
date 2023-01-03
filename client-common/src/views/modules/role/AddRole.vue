@@ -900,7 +900,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Add Role | Phibase - Common'
+    document.title = 'Add Role | Tai sin - Common'
   },
 }
 </script>

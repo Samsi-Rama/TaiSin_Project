@@ -193,7 +193,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Dashboard | Phibase - Common'
+    document.title = 'Dashboard | Tai sin - Common'
   },
   mounted() {
     this.$store

@@ -255,7 +255,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Application | Phibase - Common'
+    document.title = 'Application | Tai Sin - Common'
   },
   mounted() {
     console.log(this.settings)

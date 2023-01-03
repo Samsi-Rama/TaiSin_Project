@@ -41,11 +41,6 @@ var menu = [
     route: 'user',
     icon: 'UsersIcon',
   },
-  {
-    title: 'Note',
-    route: 'note',
-    icon: 'TypeIcon',
-  },
 ]
 
 if (permission.allAccess) {
@@ -60,10 +55,10 @@ if (permission.allAccess) {
   })
 }
 
-navMenu.push({
-  title: 'OEE',
-  route: 'oee',
-  icon: "TargetIcon"
-})
+// navMenu.push({
+//   title: 'OEE',
+//   route: 'oee',
+//   icon: "TargetIcon"
+// })
 
 export default navMenu

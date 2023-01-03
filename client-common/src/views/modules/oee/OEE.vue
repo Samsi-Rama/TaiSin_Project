@@ -237,7 +237,7 @@ export default {
     }
   },
   created() {
-    document.title = 'OEE | Phibase - Common'
+    document.title = 'OEE | Tai sin - Common'
   },
   mounted() {
   },

@@ -877,7 +877,7 @@ export default {
     },
   },
   created() {
-    document.title = 'View Role | Phibase - Common'
+    document.title = 'View Role | Tai sin - Common'
   },
   mounted() {
     setTimeout(() => {

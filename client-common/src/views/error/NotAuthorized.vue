@@ -74,7 +74,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Not Authorized | Phibase - Common'
+    document.title = 'Not Authorized | Tai sin - Common'
   },
 }
 </script>

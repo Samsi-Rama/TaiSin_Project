@@ -377,7 +377,7 @@ export default {
     },
   },
   created() {
-    document.title = 'Role | Phibase - Common'
+    document.title = 'Role | Tai sin - Common'
   },
   mounted() {
     this.$store

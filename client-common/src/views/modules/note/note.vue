@@ -601,7 +601,7 @@ export default {
   },
 
   created() {
-    document.title = 'Note | Phibase - Common'
+    document.title = 'Note | Tai sin - Common'
   },
   
   mounted() {
