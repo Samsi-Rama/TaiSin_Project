@@ -1,7 +1,21 @@
 <template>
   <b-card title="BOM">
       <b-col cols="12">
-        <b-button @click="add()" v-if="permission.add" variant="primary">Add new BOM</b-button>
+        <b-button @click="add()" v-if="permission.add" variant="primary">Add new Drum</b-button>
+            <b-button
+              variant="primary"
+              style="margin-left:15px;"
+              @click="promptDownload=true"
+            >
+              <feather-icon size="1x" icon="DownloadIcon" /> Download
+            </b-button>
+            <b-button
+              variant="primary"
+              style="margin-left:15px;"
+              @click="promptUpload=true"
+            >
+              <feather-icon size="1x" icon="UploadIcon" /> Upload
+            </b-button>
         <!-- Modal for adding new BOM-->
         <b-modal style="margin:1em" v-model="addBOMModal" :title="addModal.title" :id="addModal.id" size="lg" >
           <b-form  style="margin:1em" @submit="onSubmitAdd" @reset="onReset" v-if="show">
@@ -9,11 +23,11 @@
               <b-row>
                 <b-col cols="12">
                   <b-form-group>
-                    <label id="add-bom-name" for="add-bom-name-input">BOM Name<span class="text-danger">*</span></label>
+                    <label id="add-bom-name" for="add-bom-name-input">Drum Name<span class="text-danger">*</span></label>
                     <b-form-input
                       id="add-bom-name-input"
                       v-model="addModal.form.name"
-                      placeholder="BOM Name"
+                      placeholder="Drum Name"
                       required
                     ></b-form-input>
                   </b-form-group>
@@ -24,19 +38,19 @@
                 />
                   </b-form-checkbox>
                 </b-col>
-                
+
                 <b-col cols="12">
                   <!-- Solid divider -->
                   <hr class="solid">
                 </b-col>
                 <b-col cols="6">
-                  <h4>Components<span class="text-danger">*</span></h4>
-                  
+                  <h4>Cables<span class="text-danger">*</span></h4>
+
                 </b-col>
                 <b-col cols="6">
                   <b-button size="sm" @click="addComponent(true)" variant="info" class="mr-1">
                   <b-icon icon="plus" font-scale="1"></b-icon>
-                  </b-button>        
+                  </b-button>
                 </b-col>
                 <b-col cols="12">
                   <!-- Solid divider -->
@@ -57,7 +71,7 @@
                       ></b-form-input>
                     </div>
                     <div v-else>
-                      <b-form-select v-model="addModal.form.components[row.index].name" 
+                      <b-form-select v-model="addModal.form.components[row.index].name"
                       :options="components" text-field="name" value-field="id"></b-form-select>
                     </div>
                   </template>
@@ -86,31 +100,31 @@
                   </template>
                 </b-table>
                 </b-col>
-                
+
                 <b-col cols="12" style="margin-bottom: 15px">
                   <b-button type="submit" class="float-right" variant="primary" style="margin-left: 5px">Submit</b-button>
-                  <b-button type="reset" class="float-right" variant="danger" style="margin-right: 7px">Reset</b-button>    
+                  <b-button type="reset" class="float-right" variant="danger" style="margin-right: 7px">Reset</b-button>
                 </b-col>
               </b-row>
             </b-card-actions-container>
           </b-form>
           <template #modal-footer>
-            <div class="w-100">    
+            <div class="w-100">
             </div>
           </template>
         </b-modal>
 
         <!-- Modal for editting BOM-->
-        <b-modal v-model="editBOMModal" :title="editModal.title" :id="editModal.id" size="lg">      
+        <b-modal v-model="editBOMModal" :title="editModal.title" :id="editModal.id" size="lg">
           <b-form @submit="onSubmitEdit" @reset="onReset" v-if="show">
             <b-row>
               <b-col cols="12">
                 <b-form-group>
-                  <label id="edit-bom-name" for="input-2">BOM Name<span class="text-danger">*</span></label>
+                  <label id="edit-bom-name" for="input-2">Drum Name<span class="text-danger">*</span></label>
                   <b-form-input
                     id="input-2"
                     v-model="editModal.form.name"
-                    placeholder="BOM Name"
+                    placeholder="Drum Name"
                     required
                   ></b-form-input>
                 </b-form-group>
@@ -126,12 +140,12 @@
                 <hr class="solid">
               </b-col>
               <b-col cols="6">
-                <h4>Components<span class="text-danger">*</span></h4>  
+                <h4>cables<span class="text-danger">*</span></h4>
               </b-col>
               <b-col cols="6">
                 <b-button size="sm" @click="addComponent(false)" variant="info" class="mr-1">
                 <b-icon icon="plus" font-scale="1"></b-icon>
-                </b-button>        
+                </b-button>
               </b-col>
               <b-col cols="12">
                 <!-- Solid divider -->
@@ -191,13 +205,13 @@
             </b-row>
             <div class="w-100">
               <b-button type="submit" class="float-right" variant="primary">Submit</b-button>
-              <b-button type="reset" class="float-right" variant="danger" style="margin-right: 7px;">Reset</b-button>    
+              <b-button type="reset" class="float-right" variant="danger" style="margin-right: 7px;">Reset</b-button>
             </div>
             </b-form>
-            
-              
+
+
             <template #modal-footer>
-              <div class="w-100">    
+              <div class="w-100">
               </div>
             </template>
           </b-modal>
@@ -230,24 +244,95 @@
                   </template>
                 </b-table>
               </b-col>
-              
+
             </b-row>
             <template #modal-footer>
-              <div class="w-100">    
+              <div class="w-100">
               </div>
             </template>
           </b-modal>
         <!-- Delete BOM modal-->
-          <b-modal 
-          @ok="onSubmitDelete" 
-          v-model="deleteBOMModal" 
-          :title="deleteModal.title" 
-          :id="deleteModal.id" 
+          <b-modal
+          @ok="onSubmitDelete"
+          v-model="deleteBOMModal"
+          :title="deleteModal.title"
+          :id="deleteModal.id"
           ok-only >
             <b-row>
               {{deleteModal.message}}
             </b-row>
           </b-modal>
+
+        <!-- Download BOM modal-->
+        <b-modal
+          id="promptDownload"
+          ref="modal"
+          v-model="promptDownload"
+          title="Download"
+          hide-footer
+        >
+        <strong>Select download file type</strong>
+        <div style="display: table; margin: 0 auto;">
+          <download-excel :data="boms" :fields="filter" name="bom.xls" class="download-border">
+            <img src="@/assets/images/xls.png" height=100>
+          </download-excel>
+          <download-excel :data="boms" :fields="filter" type="csv" name="bom.csv" class="download-border">
+            <img src="@/assets/images/csv.png" height=100>
+          </download-excel>
+        </div>
+      </b-modal>
+
+      <!-- Upload BOM modal-->
+        <b-modal
+          id="promptUpload"
+          ref="modal"
+          v-model="promptUpload"
+          title="Upload"
+        >
+          <div class="upload-border">
+            <feather-icon icon="UploadIcon" size='4x'/><br>
+            <b-form-file
+              v-model="file"
+              plain
+              accept=".xls,.xlsx,.csv"
+              @change="previewFiles"
+              style="margin: 15px 20px;"
+            ></b-form-file>
+            <strong v-if="errorMessage" style="color:red; text-align:right;">{{ errorMessage }}</strong>
+          </div>
+
+          <template #modal-footer>
+          <b-button
+            size="md"
+            variant="success"
+            :disabled="errorMessage !== '' || file === null"
+            @click="uploadItem"
+          >
+            Upload
+          </b-button>
+          <b-button
+            size="md"
+            variant="danger"
+            @click="promptUpload=false"
+          >
+            Cancel
+        </b-button>
+        </template>
+      </b-modal>
+
+      <b-modal
+        id="promptLoading"
+        ref="modal"
+        v-model="promptLoading"
+        title="Processing..."
+        hide-footer
+      >
+        <div class="progress" style="height: 30px; margin: 20px 0;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :aria-valuenow="uploadCounter * 100 / uploadLength" aria-valuemin="0" aria-valuemax="100" :style="`width: ${uploadCounter * 100 / uploadLength}%`">
+            <span class="progress-bar-title">{{ uploadCounter }} / {{ uploadLength }}</span>
+          </div>
+        </div>
+      </b-modal>
       </b-col>
       <b-col cols="12">
         <!-- Solid divider -->
@@ -332,8 +417,8 @@
                 :filter="search"
                 :per-page="perPage"
                 :current-page="currentPage"
-                :items="bom" 
-                :fields="table_fields" 
+                :items="bom"
+                :fields="table_fields"
                 :sort-by.sync="sortBy"
                 :sort-desc.sync="sortDesc"
                 :stacked= stackedStatus
@@ -398,15 +483,16 @@
 
 import { dateFormat, userAccess, userAccessManufacture, viewAccess } from '@/utils/utils.js';
 import {mapActions} from 'vuex';
-
+import * as XLSX from 'xlsx'
 import vSelect from 'vue-select';
+import Item from '../modules/item/Item.vue';
+
 export default {
   components: {
     vSelect
   },
   data() {
     return {
-      checked: false,
       stackedStatus:"md",
       showSpinner: false,
       //sort direction list
@@ -432,7 +518,22 @@ export default {
           recipe:false
         }
       },
-      
+
+      //for download and upload BOM
+      promptDownload: false,
+      promptUpload: false,
+      filter: {
+        'Name'      : "name",
+        'Created At': 'createdAtFormatted',
+        'Props'     : 'props',
+      },
+      file: null,
+      uploadCounter: 0,
+      uploadLength: 0,
+      errorMessage: '',
+      uploadArray: [],
+      promptLoading: false,
+      overwrite: false,
 
 
       //for edit boms
@@ -444,7 +545,7 @@ export default {
           name:'',
         }
       },
-      
+
       show: true,
 
       //for show bomdetails
@@ -459,7 +560,7 @@ export default {
         }
       },
 
-      //for delete Bo,
+      //for delete Bom,
       deleteBOMModal:false,
       deleteModal: {
         id: 'delete-modal-bom',
@@ -486,8 +587,126 @@ export default {
         }, 600)
     },
 
+
+
+    //method for uploading bom
+    uploadItem() {
+      if (this.uploadCounter === 0) {
+        this.promptUpload = false;
+        this.promptLoading = true;
+      }
+      if (this.uploadCounter < this.uploadLength) {
+        setTimeout(() => {
+          var data = this.uploadArray[this.uploadCounter];
+
+          const trimmedData = Object.entries(data).reduce((acc, curr) => {
+            let [key, value] = curr;
+            // Checking if the key is a string
+            acc[typeof key === "string" ? key.trim() : key] = value;
+            return acc;
+          }, {});
+
+          this.addModal.form.name = trimmedData['Name']
+          this.addModal.form.createdAt = trimmedData['Created At']
+          this.addModal.form.components = JSON.parse(trimmedData['Props'])
+
+          for(let i=0 ; i<this.addModal.form.components.length ; i++){
+            this.addModal.form.components.name = this.addModal.form.components[i].name
+            this.addModal.form.components.quantity = this.addModal.form.components[i].quantity
+            this.addModal.form.components.isNew = this.addModal.form.components[i].isNew
+          }
+
+          this.uploadCounter++;
+          this.addNewBom();
+          this.uploadItem();
+        }, 50)
+
+      } else {
+        this.file = null;
+        this.promptLoading = false;
+        this.$bvToast.toast(`Successfully Uploaded ${this.uploadLength} bom(s)`, {
+          title: 'Success',
+          variant: 'success',
+          solid: true,
+        })
+      }
+    },
+
+    onRowSelected(bom) {
+      this.selected = bom
+    },
+
+    previewFiles (e) {
+      this.errorMessage = '';
+      let files = e.target.files, f = files[0]
+      const reader = new FileReader()
+      reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result)
+        const workbook = XLSX.read(data, {type: 'array'})
+        const sheetName = workbook.SheetNames[0]
+        const worksheet = workbook.Sheets[sheetName]
+        const XL_row_object = XLSX.utils.sheet_to_json(worksheet, {raw: false, defval: ''})
+
+        const acceptedColumnName = [
+          'Name',
+          'Created At',
+          'Props',
+        ]
+
+        const columnName = Object.keys(XL_row_object[0]);
+
+        for (let i = 0; i < acceptedColumnName.length; i++) {
+          if (columnName[i] !== acceptedColumnName[i]) {
+            this.errorMessage = 'Invalid column name'
+            return;
+          }
+        }
+
+        this.uploadCounter = 0;
+        this.uploadLength = XL_row_object.length;
+        this.uploadArray = XL_row_object;
+      }.bind(this)
+      reader.readAsArrayBuffer(f)
+    },
+
+    addNewBom() {
+      this.$store.dispatch("bom/addNewBOM", {...this.addModal.form,
+      })
+      .then(()=>{
+        this.addBOMModal=false;
+        this.addModal.form.name = '';
+        // this.addModal.form.components.splice(0, this.addModal.form.components.length - 1);
+
+        // for make sure if components truthly default/empty components.
+        this.addModal.form.components = [{name:'',quantity:0,isNew:true}];
+
+        this.$bvToast.toast("Add BOM run Successfully", {
+            title: "Success",
+            variant: "success",
+            solid: true,
+          });
+        this.clearFields();
+      }).catch(err=>{
+        this.$bvToast.toast(err, {
+            title: "Error",
+            variant: "warning",
+            solid: true,
+          });
+        this.clearFields();
+      })
+    },
+
+    clearFields() {
+      this.addModal.form = {
+        name:'',
+        components:[{name:'',quantity:0,isNew:false}],
+        createdAt:'',
+        recipe:false
+      }
+    },
+
     onSubmitAdd(event) {
-      event.preventDefault() 
+      event.preventDefault()
       this.$store.dispatch("bom/addBOM",this.addModal.form).
       then(x=>{
         this.addBOMModal=false;
@@ -496,21 +715,20 @@ export default {
 
         // for make sure if components truthly default/empty components.
         this.addModal.form.components = [{name:'',quantity:0,isNew:true}];
-        
+
         this.$bvToast.toast("Add BOM run Successfully", {
             title: "Success",
             variant: "success",
             solid: true,
           });
-      }).
-      catch(err=>{
+      }).catch(err=>{
         this.$bvToast.toast(err, {
             title: "Error",
             variant: "warning",
             solid: true,
           });
       })
-      
+
     },
     onSubmitEdit(event) {
       event.preventDefault();
@@ -545,7 +763,7 @@ export default {
       }else{
         this.editModal.form.components.splice(index,1);
       }
-      
+
     },
     onSubmitDelete(event){
       event.preventDefault();
@@ -638,6 +856,17 @@ export default {
       });
       return list;
     },
+
+    boms(){
+      var list =this.$store.getters["bom/getBOM"] ? this.$store.getters['bom/getBOM'].map(el => {
+        return {
+          ...el,
+          createdAtFormatted: dateFormat(el.createdAt),         
+          props: '['+ el.props.components.map(x => '{"id":'+ '"'+ x.id +'"'+ ', "name":' + '"'+ x.name + '"' +  ', "quantity":' + '"' +  x.quantity +'"'+ ', "isNew":' + (x.isNew? true : false)  + '}') +']',
+        }
+      }) : []
+      return list;
+    },
     rows() {
       return this.bom.length;
     },
@@ -684,13 +913,9 @@ export default {
         })
     },
   },
-  created() {
-  },
+  created() {},
   mounted(){
     this.$store.dispatch("bom/getItems");
-
-    //this.$store.dispatch("bom/getBOM");
-    //this.$store.dispatch("bom/getComponents");
 
     // Saving Menu Setting on localstorage session so it still same even after reloading the page
     if (this.$session.has("perPageBomManufacture")) {

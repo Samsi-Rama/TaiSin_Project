@@ -1,13 +1,6 @@
 <template>
   <div>
-    <b-breadcrumb>
-      <b-breadcrumb-item :to="`/${home}`">
-        <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
-      </b-breadcrumb-item>
-      <b-breadcrumb-item active>Item</b-breadcrumb-item>
-    </b-breadcrumb><br>
-
-    <b-card title="Item">
+    <b-card title="Cable">
       <b-modal
         id="promptAddEdit"
         ref="modal"
@@ -364,7 +357,7 @@
               v-if="permission.add"
               @click="addItem"
             >
-              Add Item
+              Add Cable
             </b-button>
             <!-- <b-button
               variant="primary"

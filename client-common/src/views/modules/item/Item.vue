@@ -7,7 +7,7 @@
       <b-breadcrumb-item active>Item</b-breadcrumb-item>
     </b-breadcrumb><br>
 
-    <b-card title="Item">
+    <b-card title="Cable">
       <b-modal
         id="promptAddEdit"
         ref="modal"
@@ -364,7 +364,7 @@
               v-if="permission.add"
               @click="addItem"
             >
-              Add Item
+              Add Cable
             </b-button>
             <!-- <b-button
               variant="primary"

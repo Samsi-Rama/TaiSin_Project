@@ -15,17 +15,17 @@ var menu = [
     route: 'item',
     children: [
   {
-    title: 'Item',
+    title: 'Cable',
     icon: 'BoxIcon',
     route: 'item',
   },
+      // {
+      //   title: 'Component',
+      //   route: 'component',
+      //   icon: 'PackageIcon',
+      // },
       {
-        title: 'Component',
-        route: 'component',
-        icon: 'PackageIcon',
-      },
-      {
-        title: 'BOM',
+        title: 'Drum',
         route: 'bom',
         icon: 'PackageIcon',
       },

@@ -141,8 +141,46 @@ export default {
             });
       })
     },
+    addNewBOM({commit}, payload){
+      return new Promise((resolve, reject) => {
+        var data={
+          app:getApp(),
+          domain:['Manufacture'],
+          name:payload.name,
+          props:{
+            id:payload.name.toUpperCase(),
+            components:payload.components,
+          },
+        }
+        console.log(payload.components)
+        data.props.components=data.props.components.map(x=>{
+          if(x.isNew){console.log("test1")
+            return {
+              name:x.name,
+              quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity), 
+              isNew: x.isNew
+            }
+          }
+          console.log("test2")
+          return {
+            name:x.name,
+            quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity)
+          }
+        });
+
+        
+        axios 
+        .post('/common/boms',data)
+        .then(res => {
+          console.log(res.data.data)
+          commit('ADD_BOM',res.data.data)
+          resolve('run finished')
+        })
+        .catch(err => reject(err))
+      })
+    },
+
     addBOM({commit},payload){
-      console.log(payload.components)
       //Process payload, optional
       return new Promise((resolve,reject)=>{
         var data={
