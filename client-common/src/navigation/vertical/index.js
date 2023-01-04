@@ -32,6 +32,24 @@ var menu = [
     ],
   },
   {
+    title: 'Plant',
+    icon: 'HomeIcon',
+    route: 'plant',
+    isMainMenu: true,
+    children: [
+      {
+        title: 'Hardware',
+        route: 'hardware',
+        icon: 'ToolIcon',
+      },
+      {
+        title: 'Station/ PL',
+        route: 'station',
+        icon: 'HomeIcon',
+      },
+    ],
+  },
+  {
     title: 'Role',
     route: 'role',
     icon: 'SettingsIcon'

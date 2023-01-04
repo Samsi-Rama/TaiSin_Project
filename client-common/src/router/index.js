@@ -100,7 +100,28 @@ const router = new VueRouter({
             requiresAuth: true,
           },
         },
-
+        // Hardware
+        {
+          path: '/hardware',
+          name: 'hardware',
+          component: () => import('../views/plant/Hardware.vue'),
+          meta: {
+            rule: 'editor',
+            no_scroll: true,
+            requiresAuth: true,
+          },
+        },
+        // Station
+        {
+          path: '/station',
+          name: 'station',
+          component: () => import('@/views/plant/Station.vue'),
+          meta: {
+            rule: 'editor',
+            no_scroll: true,
+            requiresAuth: true,
+          },
+        },
         // Role
         {
           path: '/role',

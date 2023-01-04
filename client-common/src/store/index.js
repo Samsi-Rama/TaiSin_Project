@@ -14,6 +14,7 @@ import moduleRole from './role/moduleRole'
 import moduleUser from './user/moduleUser'
 import moduleNote from './note/moduleNote'
 import moduleDashboard from './dashboard/moduleDashboard'
+import modulePlant from './plant/index'
 import bom from './bom'
 
 import state from './state'
@@ -41,7 +42,8 @@ export default new Vuex.Store({
     role: moduleRole,
     user: moduleUser,
     note: moduleNote,
-    dashboard: moduleDashboard
+    dashboard: moduleDashboard,
+    plant : modulePlant
   },
   strict: process.env.DEV,
 })
