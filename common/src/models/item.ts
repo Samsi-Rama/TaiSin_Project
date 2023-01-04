@@ -62,7 +62,6 @@ const ItemSchema = new mongoose.Schema(
   },
 );
 
-
 ItemSchema.statics.build = (attrs: ItemAttrs) => {
   return new Item(attrs);
 };

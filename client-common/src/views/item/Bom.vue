@@ -1,22 +1,15 @@
 <template>
   <b-card title="Drum">
       <b-col cols="12">
-        <b-button @click="add()" v-if="permission.add" variant="primary">Add new Drum</b-button>
-            <!-- <b-button
-              variant="primary"
-              style="margin-left:15px;"
-              @click="promptDownload=true"
-            >
-              <feather-icon size="1x" icon="DownloadIcon" /> Download
-            </b-button>
-            <b-button
-              variant="primary"
-              style="margin-left:15px;"
-              @click="promptUpload=true"
-            >
-              <feather-icon size="1x" icon="UploadIcon" /> Upload
-            </b-button> -->
-        <!-- Modal for adding new BOM-->
+        <b-row>
+          <b-col cols="3">
+            <b-button @click="add()" v-if="permission.add" variant="primary">New Mama Drum</b-button>
+          </b-col>
+          <b-col cols="3">
+            <b-button @click="add()" v-if="permission.add" variant="primary">New Baby Drum</b-button>
+          </b-col>
+        </b-row>
+        <!-- Modal for adding new Mama Drum-->
         <b-modal style="margin:1em" v-model="addBOMModal" :title="addModal.title" :id="addModal.id" size="lg" >
           <b-form  style="margin:1em" @submit="onSubmitAdd" @reset="onReset" v-if="show">
             <b-card-actions-container class="bv-example-row">
@@ -44,7 +37,7 @@
                   <hr class="solid">
                 </b-col>
                 <b-col cols="6">
-                  <h4>Cables<span class="text-danger">*</span></h4>
+                  <h4>Cable type<span class="text-danger">*</span></h4>
 
                 </b-col>
                 <b-col cols="6">
@@ -113,6 +106,10 @@
             </div>
           </template>
         </b-modal>
+
+        <!-- Modal for adding new Baby Drum-->
+
+
 
         <!-- Modal for editting BOM-->
         <b-modal v-model="editBOMModal" :title="editModal.title" :id="editModal.id" size="lg">
@@ -814,8 +811,9 @@ export default {
       this.showBOMModal=true;
     },
     add(){
-      this.addModal.title="Add New Bom"
+      this.addModal.title="Add New Mama Drum"
       this.addBOMModal=true;
+      babydrum: item.props.babydrum = true
     },
     edit(item,index,event){
       this.editModal.title="Edit "+item.name;
