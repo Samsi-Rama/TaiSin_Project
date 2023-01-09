@@ -6,7 +6,7 @@
             <b-button @click="add()" v-if="permission.add" variant="primary">New Mama Drum</b-button>
           </b-col>
           <b-col cols="3">
-            <b-button @click="add()" v-if="permission.add" variant="primary">New Baby Drum</b-button>
+            <b-button @click="addbaby()" v-if="permission.add" variant="primary">New Baby Drum</b-button>
           </b-col>
         </b-row>
         <!-- Modal for adding new Mama Drum-->
@@ -25,12 +25,12 @@
                     ></b-form-input>
                   </b-form-group>
                 </b-col>
-                <b-col cols="12">
+                <!-- <b-col cols="12">
                   <b-form-checkbox v-model="addModal.form.recipe" name="check-button" switch>
                     With Recipe<feather-icon style="color:green" v-if="addModal.form.recipe" size="1x" icon="CheckIcon"
                 />
                   </b-form-checkbox>
-                </b-col>
+                </b-col> -->
 
                 <b-col cols="12">
                   <!-- Solid divider -->
@@ -64,7 +64,7 @@
                       ></b-form-input>
                     </div>
                     <div v-else>
-                      <b-form-select v-model="addModal.form.components[row.index].name"
+                      <b-form-select v-model="addModal.form.components[row.index]"
                       :options="components" text-field="name" value-field="id"></b-form-select>
                     </div>
                   </template>
@@ -77,7 +77,7 @@
                       min="0"
                     ></b-form-input>
                   </template>
-                  <template #cell(type)="row">
+                  <!-- <template #cell(type)="row">
                     <b-form-checkbox
                       :id="'checkbox-add-'+row.index"
                       v-model="addModal.form.components[row.index].isNew"
@@ -85,7 +85,7 @@
                     >
                       is New
                     </b-form-checkbox>
-                  </template>
+                  </template> -->
                   <template #cell(actions)="row">
                     <b-button size="sm" @click="deleteComponent(row.index, true)" variant="danger" class="mr-1">
                     <b-icon icon="trash" font-scale="1"></b-icon>
@@ -109,7 +109,43 @@
 
         <!-- Modal for adding new Baby Drum-->
 
-
+        <b-modal style="margin:1em" v-model="addBabyDrum" :title="addModalBaby.title" :id="addModalBaby.id" size="lg" >
+          <b-form  style="margin:1em" @submit="babyOnSubmitAdd" @reset="onReset" v-if="show">
+            <b-card-actions-container class="bv-example-row">
+              <b-row>
+                <b-col cols="12">
+                  <b-form-group>
+                    <label id="add-baby-name" for="add-baby-name-input">Drum Name<span class="text-danger">*</span></label>
+                    <b-form-input
+                      id="add-baby-name-input"
+                      v-model="addModalBaby.form.name"
+                      placeholder="Drum Name"
+                      required
+                    ></b-form-input>
+                    <br>
+                    <label id="add-baby-deskripsi" for="add-baby-deskripsi-input">Drum Deskripsi<span class="text-danger">*</span></label>
+                    <b-form-textarea
+                      id="add-baby-deskripsi-input"
+                      v-model="addModalBaby.form.deskripsi"
+                      placeholder="Drum Deskripsi"
+                      rows="3"
+                      max-rows="5"
+                      required
+                    ></b-form-textarea>
+                  </b-form-group>
+                </b-col>
+                <b-col cols="12" style="margin-bottom: 15px">
+                  <b-button type="submit" class="float-right" variant="primary" style="margin-left: 5px">Submit</b-button>
+                  <b-button type="reset" class="float-right" variant="danger" style="margin-right: 7px">Reset</b-button>
+                </b-col>
+              </b-row>
+            </b-card-actions-container>
+          </b-form>
+          <template #modal-footer>
+            <div class="w-100">
+            </div>
+          </template>
+        </b-modal>
 
         <!-- Modal for editting BOM-->
         <b-modal v-model="editBOMModal" :title="editModal.title" :id="editModal.id" size="lg">
@@ -505,11 +541,25 @@ export default {
       currentPage: 1,
       //for add boms
       addBOMModal:false,
+      addBabyDrum:false,
       addModal:{
         id:'add-modal-bom',
         title:'',
         form: {
           name:'',
+          deskripsi:'',
+          components:[{name:'',quantity:0,isNew:false}],
+          createdAt:'',
+          recipe:false
+        }
+      },
+
+      addModalBaby:{
+        id:'add-modal-baby',
+        title:'',
+        form: {
+          name:'',
+          deskripsi:'',
           components:[{name:'',quantity:0,isNew:false}],
           createdAt:'',
           recipe:false
@@ -671,6 +721,7 @@ export default {
       })
       .then(()=>{
         this.addBOMModal=false;
+        this.addBabyDrum=false;
         this.addModal.form.name = '';
         // this.addModal.form.components.splice(0, this.addModal.form.components.length - 1);
 
@@ -702,16 +753,44 @@ export default {
       }
     },
 
+    babyOnSubmitAdd(event) {
+      event.preventDefault()
+      this.$store.dispatch("bom/addBabyBOM",this.addModalBaby.form).
+      then(x=>{
+        this.addBabyDrum=false;
+        this.addModalBaby.form.name = '';
+        this.addModalBaby.form.deskripsi = '';
+        this.addModal.form.components.splice(0, this.addModal.form.components.length - 1);
+
+        // for make sure if components truthly default/empty components.
+        this.addModal.form.components = [{name:'',deskripsi:'',quantity:0,isNew:true}];
+
+        this.$bvToast.toast("Add BOM run Successfully", {
+            title: "Success",
+            variant: "success",
+            solid: true,
+          });
+      }).catch(err=>{
+        this.$bvToast.toast(err, {
+            title: "Error",
+            variant: "warning",
+            solid: true,
+          });
+      })
+
+    },
+
     onSubmitAdd(event) {
       event.preventDefault()
       this.$store.dispatch("bom/addBOM",this.addModal.form).
       then(x=>{
         this.addBOMModal=false;
         this.addModal.form.name = '';
+        this.addModal.form.deskripsi = '';
         this.addModal.form.components.splice(0, this.addModal.form.components.length - 1);
 
         // for make sure if components truthly default/empty components.
-        this.addModal.form.components = [{name:'',quantity:0,isNew:true}];
+        this.addModal.form.components = [{name:'',deskripsi:'',quantity:0,isNew:true}];
 
         this.$bvToast.toast("Add BOM run Successfully", {
             title: "Success",
@@ -813,7 +892,11 @@ export default {
     add(){
       this.addModal.title="Add New Mama Drum"
       this.addBOMModal=true;
-      babydrum: item.props.babydrum = true
+      console.log(this.$store.getters["bom/getComponents"])
+    },
+    addbaby(){
+      this.addModalBaby.title="Add New Baby Drum"
+      this.addBabyDrum=true;
     },
     edit(item,index,event){
       this.editModal.title="Edit "+item.name;

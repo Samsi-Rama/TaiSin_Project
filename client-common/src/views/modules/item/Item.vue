@@ -4,7 +4,7 @@
       <b-breadcrumb-item :to="`/${home}`">
         <b-icon icon="house-fill" scale="1.25" shift-v="1.25" aria-hidden="true"></b-icon>
       </b-breadcrumb-item>
-      <b-breadcrumb-item active>Item</b-breadcrumb-item>
+      <b-breadcrumb-item active>Cable</b-breadcrumb-item>
     </b-breadcrumb><br>
 
     <b-card title="Cable">
@@ -479,6 +479,7 @@
                     </b-dropdown>
                   </div>
                 </template>
+
               </b-table>
             </div>
           </b-col>

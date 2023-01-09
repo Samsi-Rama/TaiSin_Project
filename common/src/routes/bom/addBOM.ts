@@ -44,12 +44,12 @@ router.post(
      * }
      */
 
-    if(!bomData.props.components){
-      throw new BadRequestError('BOM Data should need to have props.components')
-    }
-    if(bomData.props.components.length<=0){
-      throw new BadRequestError('BOM Data should have props.components atleast one data')
-    }
+    // if(!bomData.props.components){
+    //   throw new BadRequestError('BOM Data should need to have props.components')
+    // }
+    // if(bomData.props.components.length<=0){
+    //   throw new BadRequestError('BOM Data should have props.components atleast one data')
+    // }
 
     //Process Components
     var curComponent;
@@ -85,12 +85,12 @@ router.post(
         continue;
       }
       //check for component
-      componentData = await Item.findById(curComponent.id);
+      // componentData = await Item.findById(curComponent.id);
 
-      if(!componentData){
-        throw new BadRequestError('Component inserted is not found')
-      }
-      bomData.props.components[i].name=componentData.name;
+      // if(!componentData){
+      //   throw new BadRequestError('Component inserted is not found')
+      // }
+      // bomData.props.components[i].name=componentData.name;
     }
     
     var item;
