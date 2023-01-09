@@ -64,7 +64,7 @@
                       ></b-form-input>
                     </div>
                     <div v-else>
-                      <b-form-select v-model="addModal.form.components[row.index]"
+                      <b-form-select v-model="addModal.form.components[row.index].name"
                       :options="components" text-field="name" value-field="id"></b-form-select>
                     </div>
                   </template>
@@ -560,9 +560,7 @@ export default {
         form: {
           name:'',
           deskripsi:'',
-          components:[{name:'',quantity:0,isNew:false}],
           createdAt:'',
-          recipe:false
         }
       },
 
@@ -760,10 +758,6 @@ export default {
         this.addBabyDrum=false;
         this.addModalBaby.form.name = '';
         this.addModalBaby.form.deskripsi = '';
-        this.addModal.form.components.splice(0, this.addModal.form.components.length - 1);
-
-        // for make sure if components truthly default/empty components.
-        this.addModal.form.components = [{name:'',deskripsi:'',quantity:0,isNew:true}];
 
         this.$bvToast.toast("Add BOM run Successfully", {
             title: "Success",
@@ -892,7 +886,6 @@ export default {
     add(){
       this.addModal.title="Add New Mama Drum"
       this.addBOMModal=true;
-      console.log(this.$store.getters["bom/getComponents"])
     },
     addbaby(){
       this.addModalBaby.title="Add New Baby Drum"
