@@ -945,7 +945,7 @@ export default {
       return this.bom.length;
     },
     components(){
-      return this.$store.getters["bom/getComponents"];
+      return this.$store.getters["bom/getComponents"].filter(comp => comp.name.toUpperCase() !== comp.props.id);
     },
     table_fields(){
       return [{
