@@ -616,7 +616,7 @@ export default {
 
     addItem() {
       this.promptAddEdit = true;
-      this.title = 'Add Item';
+      this.title = 'Add Cable';
       this.addEdit = 'Add';
       this.clearFields();
     },
@@ -863,11 +863,13 @@ export default {
       return viewAccess()[0]
     },
     items() {
-      var getItems = this.$store.getters['item/getItem'] ? this.$store.getters['item/getItem'].map(el => {
+      var getItems = this.$store.getters['item/getItem'] ? this.$store.getters['item/getItem']
+      .filter(comp => comp.name.toUpperCase() !== comp.props.id)
+      .map(el => {
         return {
           ...el,
           itemID: el.props ? el.props.id ? el.props.id : 'Not Set Up' : 'Not Set Up',
-          type: el.props ? el.props.components ? el.props.components.length > 0 ? 'BOM' : 'Raw Material' : 'Raw Material' : 'Raw Material',
+          type: el.props ? el.props.components ? el.props.components.length >= 0 ? 'BOM' : 'Raw Material' : 'Raw Material' : 'Raw Material',
           // stock: el.props ? el.props.stock ? el.props.stock : 'Not Set Up' : 'Not Set Up',
           unit: el.props ? el.props.unit ? el.props.unit : 'Not Set Up' : 'Not Set Up',
           price: el.props ? el.props.price ? el.props.price : 'Not Set Up' : 'Not Set Up',

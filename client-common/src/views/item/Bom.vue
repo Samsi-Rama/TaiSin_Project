@@ -55,15 +55,15 @@
                     {{row.index+1}}
                   </template>
                   <template #cell(name)="row">
-                    <div v-if="row.item.isNew">
+                    <!-- <div v-if="row.item.isNew">
                       <b-form-input
                         id="add-bom-name-input"
                         v-model="addModal.form.components[row.index].name"
                         placeholder="Component Name"
                         required
                       ></b-form-input>
-                    </div>
-                    <div v-else>
+                    </div> -->
+                    <div>
                       <b-form-select v-model="addModal.form.components[row.index].name"
                       :options="components" text-field="name" value-field="id"></b-form-select>
                     </div>
@@ -439,7 +439,6 @@
                 </b-form-checkbox>
             </b-col>
         </b-row>
-
         <b-row>
           <b-col cols="12">
             <div style="overflow-x: visible;">
@@ -717,7 +716,8 @@ export default {
     addNewBom() {
       this.$store.dispatch("bom/addNewBOM", {...this.addModal.form,
       })
-      .then(()=>{
+      .then(x=>{
+        console.log(x)
         this.addBOMModal=false;
         this.addBabyDrum=false;
         this.addModal.form.name = '';
@@ -755,9 +755,13 @@ export default {
       event.preventDefault()
       this.$store.dispatch("bom/addBabyBOM",this.addModalBaby.form).
       then(x=>{
+        console.log(x)
         this.addBabyDrum=false;
         this.addModalBaby.form.name = '';
         this.addModalBaby.form.deskripsi = '';
+
+        // for make sure if components truthly default/empty components.
+        this.addModal.form.components = [{name:'',deskripsi:'',quantity:0,isNew:true}];
 
         this.$bvToast.toast("Add BOM run Successfully", {
             title: "Success",
@@ -890,6 +894,7 @@ export default {
     addbaby(){
       this.addModalBaby.title="Add New Baby Drum"
       this.addBabyDrum=true;
+      console.log(this.$store.getters["bom/getBOM"])
     },
     edit(item,index,event){
       this.editModal.title="Edit "+item.name;
@@ -925,27 +930,33 @@ export default {
     },
     bom(){
       var filter=this.search.toString();
+      console.log(filter)
       var list =this.$store.getters["bom/getBOM"].filter(x=>{
         return x.name.includes(filter)
       });
+      // console.log(list)
       return list;
     },
 
     boms(){
-      var list =this.$store.getters["bom/getBOM"] ? this.$store.getters['bom/getBOM'].map(el => {
+      var list = this.$store.getters["bom/getBOM"] ? this.$store.getters['bom/getBOM'].map(el => {
         return {
           ...el,
           createdAtFormatted: dateFormat(el.createdAt),         
           props: '['+ el.props.components.map(x => '{"id":'+ '"'+ x.id +'"'+ ', "name":' + '"'+ x.name + '"' +  ', "quantity":' + '"' +  x.quantity +'"'+ ', "isNew":' + (x.isNew? true : false)  + '}') +']',
         }
       }) : []
+      
       return list;
     },
     rows() {
       return this.bom.length;
     },
     components(){
-      return this.$store.getters["bom/getComponents"].filter(comp => comp.name.toUpperCase() !== comp.props.id);
+      let data = this.$store.getters["bom/getComponents"]
+      .filter(comp => comp.name.toUpperCase() !== comp.props.id);
+      console.log(data)
+      return data
     },
     table_fields(){
       return [{
@@ -964,7 +975,7 @@ export default {
         },'actions']
     },
     components_fields(){
-      return ['no','name','quantity','type','actions']
+      return ['no','name','quantity','actions']
     },
     components_detail_fields(){
       return ['no','name','quantity']
@@ -990,6 +1001,8 @@ export default {
   created() {},
   mounted(){
     this.$store.dispatch("bom/getItems");
+    this.$store.dispatch("bom/getComponents")
+    // this.$store.dispatch("bom/getBOM")
 
     // Saving Menu Setting on localstorage session so it still same even after reloading the page
     if (this.$session.has("perPageBomManufacture")) {

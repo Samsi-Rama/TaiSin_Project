@@ -42,7 +42,7 @@ export default {
       var bomFilter= payload.filter(x=>{
         if (x.props !== undefined) {
           if (x.props.components !== undefined) {
-            return x.props.components.length >= 1;
+            return x.props.components.length >= 0;
           }
         }
 
@@ -63,7 +63,7 @@ export default {
       state.boms.push(payload)
     },
     EDIT_BOM(state,payload){
-      console.log('BOM',payload)
+      // console.log('BOM',payload)
       var editIndex = state.boms.findIndex(x=>{return x.id==payload.id})
       if(editIndex>=0){
         var curBOM=state.boms[editIndex];
@@ -79,7 +79,7 @@ export default {
       state.components.push(payload);
     },
     EDIT_COMPONENT(state,payload){
-      console.log('Component',payload)
+      // console.log('Component',payload)
       var editIndex = state.components.findIndex(x=>{return x.id==payload.id})
       if(editIndex>=0){
         var curComp=state.components[editIndex];
@@ -103,7 +103,7 @@ export default {
           // .get('/common/items?app='+process.env.VUE_APP_APPLICATION_NAME)
           .get('/common/items?app='+getApp())
           .then(res => {
-            console.log(res.data.data)
+            // console.log(res.data.data)
             commit('GET_ITEMS',res.data.data)
           })
           .catch(err => {
@@ -111,10 +111,18 @@ export default {
           });
     },
     getBOM({ commit }){
-      commit('GET_BOM',
-      [{id:123123,name:'BOM A',createdAt:new Date(),updatedAt:new Date()},
-      {id:126121,name:'BOM B',createdAt:new Date(),updatedAt:new Date()},
-      {id:1234123,name:'BOM C',createdAt:new Date(),updatedAt:new Date()}])
+      axios
+        .get('/common/boms')
+        .then(res =>{
+          commit('GET_BOM', res.data)
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+      // commit('GET_BOM',
+      // [{id:123123,name:'BOM A',createdAt:new Date(),updatedAt:new Date()},
+      // {id:126121,name:'BOM B',createdAt:new Date(),updatedAt:new Date()},
+      // {id:1234123,name:'BOM C',createdAt:new Date(),updatedAt:new Date()}])
     },
     addComponent({commit},payload){
       return new Promise((resolve,reject)=>{
@@ -132,7 +140,7 @@ export default {
         axios
             .post('/common/items',data)
             .then(res => {
-              console.log(res.data.data)
+              // console.log(res.data.data)
               commit('ADD_COMPONENT',res.data.data)
               resolve('run finished')
             })
@@ -151,31 +159,32 @@ export default {
           props:{
             id:payload.name.toUpperCase(),
             deskripsi:payload.deskripsi,
-            babyDrum:true,
-            components:[]
+            components:[],
+            recipe: false,
+            babyDrum:true
           },
         }
-        // console.log(payload.components)
-        // data.props.components=data.props.components.map(x=>{
-        //   if(x.isNew){console.log("test1")
-        //     return {
-        //       name:x.name,
-        //       quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity), 
-        //       isNew: x.isNew
-        //     }
-        //   }
-        //   console.log("test2")
-        //   return {
-        //     name:x.name,
-        //     quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity)
-        //   }
-        // });
+        console.log(payload.components)
+        data.props.components=data.props.components.map(x=>{
+          if(x.isNew){console.log("test1")
+            return {
+              name:x.name,
+              quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity), 
+              isNew: x.isNew
+            }
+          }
+          console.log("test2")
+          return {
+            name:x.name,
+            quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity)
+          }
+        });
 
         
         axios 
         .post('/common/boms',data)
         .then(res => {
-          console.log(res.data.data)
+          // console.log(res.data.data)
           commit('ADD_BOM',res.data.data)
           resolve('run finished')
         })
@@ -214,7 +223,7 @@ export default {
         axios 
         .post('/common/boms',data)
         .then(res => {
-          console.log(res.data.data)
+          // console.log(res.data.data)
           commit('ADD_BOM',res.data.data)
           resolve('run finished')
         })
@@ -245,7 +254,7 @@ export default {
         axios 
             .post('/common/boms',data)
             .then(res => {
-              console.log(res.data.data)
+              // console.log(res.data.data)
               commit('ADD_BOM',res.data.data)
               resolve('run finished')
             })
@@ -276,7 +285,7 @@ export default {
           }
           return {id:(typeof x.name == 'object') ? x.name.id : x.id,quantity:(typeof x.quantity =='number')?x.quantity:Number(x.quantity)}
         }) 
-        console.log('edit data'+id,data)
+        // console.log('edit data'+id,data)
         axios
             .put('/common/boms/'+id,data)
             .then(res => {
@@ -304,11 +313,11 @@ export default {
             price:payload.props.price
           },
         }
-        console.log('edit data'+id,data)
+        // console.log('edit data'+id,data)
         axios
             .put('/common/items/'+id,data)
             .then(res => {
-              console.log(res.data.data)
+              // console.log(res.data.data)
               commit('EDIT_COMPONENT',res.data.data)
               resolve('edit comp finish')
             })
